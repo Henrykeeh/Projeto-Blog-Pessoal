@@ -4,10 +4,13 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -32,6 +35,10 @@ public class Postagem {
 	
 	@UpdateTimestamp // Toda postagem criada pegarao automaticamente a data e hora atual do usuário
 	private LocalDate data;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema; //Foreign Key, do tipo "Tema" que é a outra tabela, pegará automaticamente o PK id
 	
 	//Getters e Setters
 	public Long getId() {
@@ -58,6 +65,13 @@ public class Postagem {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+	
 	
 	
 }
